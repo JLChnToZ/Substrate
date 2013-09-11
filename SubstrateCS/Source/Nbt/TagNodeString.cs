@@ -79,6 +79,15 @@ namespace Substrate.Nbt
         }
 
         /// <summary>
+        /// Get JSON string respends this NBT node.
+        /// </summary>
+        /// <returns>JSON string in single line</returns>
+        public override string toJSON ()
+        {
+            return "\"" + _data + "\"";
+        }
+        
+        /// <summary>
         /// Converts a system string to a string node representing the same data.
         /// </summary>
         /// <param name="s">A string.</param>

@@ -69,6 +69,14 @@ namespace Substrate.Nbt
         }
 
         /// <summary>
+        /// Get JSON string respends this NBT node.
+        /// </summary>
+        /// <returns>JSON string in single line</returns>
+        public override string toJSON ()
+        {
+            return _data.ToString();
+        }
+        /// <summary>
         /// Converts a system float to a double node representing the same value.
         /// </summary>
         /// <param name="f">A float value.</param>

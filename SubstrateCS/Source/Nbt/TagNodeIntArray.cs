@@ -79,6 +79,22 @@ namespace Substrate.Nbt
         }
 
         /// <summary>
+        /// Get JSON string respends this NBT node.
+        /// </summary>
+        /// <returns>JSON string in single line</returns>
+        public override string toJSON ()
+        {
+            string ret = "";
+            for (int i = 0; i < _data.Length; i++) {
+              if(i > 0)
+                ret += ",";
+              ret += _data[i].ToString();
+            }
+            
+            return "[" + ret + "]";
+        }
+        
+        /// <summary>
         /// Gets or sets a single int at the specified index.
         /// </summary>
         /// <param name="index">Valid index within stored int array.</param>

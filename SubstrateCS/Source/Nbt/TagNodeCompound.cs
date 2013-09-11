@@ -81,6 +81,22 @@ namespace Substrate.Nbt
         {
             return _tags.ToString();
         }
+        
+        
+        /// <summary>
+        /// Get JSON string respends this NBT node.
+        /// </summary>
+        /// <returns>JSON string in single line</returns>
+        public override string toJSON ()
+        {
+          string ret = "";
+          foreach (KeyValuePair<string, TagNode> node in _tags) {
+            if(ret != "")
+              ret += ",";
+            ret += node.Key + ":" + node.Value.toJSON();
+          }
+          return "{" + ret + "}";
+        }
 
         #region IDictionary<string,NBT_Value> Members
 

@@ -107,6 +107,15 @@ namespace Substrate.Nbt
         {
             return _data.ToString();
         }
+        
+        /// <summary>
+        /// Get JSON string respends this NBT node.
+        /// </summary>
+        /// <returns>JSON string in single line</returns>
+        public override string toJSON ()
+        {
+            return Convert.ToInt16(_data).ToString();
+        }
 
         /// <summary>
         /// Converts a system byte to a byte node representing the same value.

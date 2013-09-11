@@ -152,6 +152,23 @@ namespace Substrate.Nbt
             return _items.ToString();
         }
 
+        
+        /// <summary>
+        /// Get JSON string respends this NBT node.
+        /// </summary>
+        /// <returns>JSON string in single line</returns>
+        public override string toJSON ()
+        {
+            string ret = "";
+            foreach (TagNode item in _items) {
+              if(ret != "")
+                ret += ",";
+              ret += item.toJSON();
+            }
+            
+            return "[" + ret + "]";
+        }
+        
         /// <summary>
         /// Resets and changes the storage type of the list.
         /// </summary>

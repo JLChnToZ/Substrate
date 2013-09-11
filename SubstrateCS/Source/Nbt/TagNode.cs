@@ -145,5 +145,14 @@ namespace Substrate.Nbt
         {
             return null;
         }
+        
+        /// <summary>
+        /// Get JSON string respends this NBT node.
+        /// </summary>
+        /// <returns>JSON string in single line</returns>
+        public virtual string toJSON ()
+        {
+            return "";
+        }
     }
 }
