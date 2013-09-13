@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Substrate.Nbt
 {
@@ -151,22 +152,21 @@ namespace Substrate.Nbt
         {
             return _items.ToString();
         }
-
         
-        /// <summary>
-        /// Get JSON string respends this NBT node.
-        /// </summary>
-        /// <returns>JSON string in single line</returns>
-        public override string toJSON ()
+        internal override StringBuilder _toJSON (StringBuilder builder)
         {
-            string ret = "";
+            StringBuilder ret = base._toJSON(builder);
+            bool isFirst = true;
+            ret.Append("[");
             foreach (TagNode item in _items) {
-              if(ret != "")
-                ret += ",";
-              ret += item.toJSON();
+              if(!isFirst)
+                ret.Append(",");
+              else
+                isFirst = false;
+              item._toJSON(ret);
             }
-            
-            return "[" + ret + "]";
+            ret.Append("]");
+            return ret;
         }
         
         /// <summary>

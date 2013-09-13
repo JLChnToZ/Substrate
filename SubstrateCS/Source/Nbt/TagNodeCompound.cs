@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Substrate.Nbt
 {
@@ -83,19 +84,21 @@ namespace Substrate.Nbt
         }
         
         
-        /// <summary>
-        /// Get JSON string respends this NBT node.
-        /// </summary>
-        /// <returns>JSON string in single line</returns>
-        public override string toJSON ()
+        internal override StringBuilder _toJSON(StringBuilder builder)
         {
-          string ret = "";
+          StringBuilder ret = base._toJSON(builder);
+          bool isFirst = true;
+          ret.Append("{");
           foreach (KeyValuePair<string, TagNode> node in _tags) {
-            if(ret != "")
-              ret += ",";
-            ret += node.Key + ":" + node.Value.toJSON();
+              if(!isFirst)
+                ret.Append(",");
+              else
+                isFirst = false;
+              ret.Append(node.Key).Append(":");
+              node.Value._toJSON(ret);
           }
-          return "{" + ret + "}";
+          ret.Append("}");
+          return ret;
         }
 
         #region IDictionary<string,NBT_Value> Members

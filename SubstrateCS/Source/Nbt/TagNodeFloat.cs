@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace Substrate.Nbt
 {
@@ -88,13 +89,9 @@ namespace Substrate.Nbt
             return _data.ToString();
         }
         
-        /// <summary>
-        /// Get JSON string respends this NBT node.
-        /// </summary>
-        /// <returns>JSON string in single line</returns>
-        public override string toJSON ()
+        internal override StringBuilder _toJSON(StringBuilder builder)
         {
-            return _data.ToString();
+          return base._toJSON(builder).Append(_data);
         }
         
         /// <summary>

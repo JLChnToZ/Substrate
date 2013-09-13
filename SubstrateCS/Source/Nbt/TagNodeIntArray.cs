@@ -77,21 +77,18 @@ namespace Substrate.Nbt
         {
             return _data.ToString();
         }
-
-        /// <summary>
-        /// Get JSON string respends this NBT node.
-        /// </summary>
-        /// <returns>JSON string in single line</returns>
-        public override string toJSON ()
+        
+        internal override StringBuilder _toJSON (StringBuilder builder)
         {
-            string ret = "";
+            StringBuilder ret = base._toJSON(builder);
+            ret.Append("[");
             for (int i = 0; i < _data.Length; i++) {
               if(i > 0)
-                ret += ",";
-              ret += _data[i].ToString();
+                ret.Append(",");
+              ret.Append(_data[i]);
             }
-            
-            return "[" + ret + "]";
+            ret.Append("]");
+            return ret;
         }
         
         /// <summary>

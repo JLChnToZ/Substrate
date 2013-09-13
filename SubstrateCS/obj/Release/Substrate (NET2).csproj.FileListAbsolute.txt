@@ -1,0 +1,6 @@
+C:\Users\user\Documents\GitHub\Substrate\SubstrateCS\bin\Release\NET2\Substrate.dll
+C:\Users\user\Documents\GitHub\Substrate\SubstrateCS\bin\Release\NET2\Substrate.pdb
+C:\Users\user\Documents\GitHub\Substrate\SubstrateCS\bin\Release\NET2\Substrate.XML
+C:\Users\user\Documents\GitHub\Substrate\SubstrateCS\obj\Release\Substrate (NET2).csprojResolveAssemblyReference.cache
+C:\Users\user\Documents\GitHub\Substrate\SubstrateCS\obj\Release\Substrate.dll
+C:\Users\user\Documents\GitHub\Substrate\SubstrateCS\obj\Release\Substrate.pdb
