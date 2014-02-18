@@ -93,19 +93,6 @@ namespace Substrate.Nbt
             return _data.ToString();
         }
 
-        internal override StringBuilder _toJSON(StringBuilder builder)
-        {
-            StringBuilder ret = base._toJSON(builder);
-            ret.Append("[");
-            for (int i = 0; i < _data.Length; i++) {
-                if (i > 0)
-                    ret.Append(",");
-                ret.Append(_data[i]);
-            }
-            ret.Append("]");
-            return ret;
-        }
-
         /// <summary>
         /// Converts a system int array to a int array node representing the same data.
         /// </summary>

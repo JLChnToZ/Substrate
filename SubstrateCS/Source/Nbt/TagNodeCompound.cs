@@ -83,24 +83,6 @@ namespace Substrate.Nbt
             return _tags.ToString();
         }
 
-
-        internal override StringBuilder _toJSON(StringBuilder builder)
-        {
-            StringBuilder ret = base._toJSON(builder);
-            bool isFirst = true;
-            ret.Append("{");
-            foreach (KeyValuePair<string, TagNode> node in _tags) {
-                if (!isFirst)
-                    ret.Append(",");
-                else
-                    isFirst = false;
-                ret.Append(node.Key).Append(":");
-                node.Value._toJSON(ret);
-            }
-            ret.Append("}");
-            return ret;
-        }
-
         #region IDictionary<string,NBT_Value> Members
 
         /// <summary>

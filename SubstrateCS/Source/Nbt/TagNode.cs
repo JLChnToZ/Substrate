@@ -152,15 +152,7 @@ namespace Substrate.Nbt
         /// <returns>JSON string in single line</returns>
         public string toJSON ()
         {
-            return _toJSON(null).ToString();
-        }
-
-        internal virtual StringBuilder _toJSON(StringBuilder builder)
-        {
-            if (builder == null)
-                return new StringBuilder();
-            else
-                return builder;
+            return JSONSerializer.Serialize(this);
         }
     }
 }

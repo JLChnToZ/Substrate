@@ -79,22 +79,6 @@ namespace Substrate.Nbt
             return _data.ToString();
         }
         
-        internal override StringBuilder _toJSON(StringBuilder builder)
-        {
-            return base._toJSON(builder)
-                .Append("\"")
-                .Append(new StringBuilder(_data) // It is faster to escape string if a string builder is used.
-                    .Replace("\\", "\\\\")
-                    .Replace("\"", "\\\"")
-                    .Replace("\r", "\\r")
-                    .Replace("\n", "\\n")
-                    .Replace("\t", "\\t")
-                    .Replace("\b", "\\b")
-                    .Replace("\f", "\\f")
-                    .ToString())
-                .Append("\"");
-        }
-        
         /// <summary>
         /// Converts a system string to a string node representing the same data.
         /// </summary>

@@ -108,11 +108,6 @@ namespace Substrate.Nbt
         {
             return _data.ToString();
         }
-        
-        internal override StringBuilder _toJSON(StringBuilder builder)
-        {
-          return base._toJSON(builder).Append(Convert.ToInt16(_data));
-        }
 
         /// <summary>
         /// Converts a system byte to a byte node representing the same value.

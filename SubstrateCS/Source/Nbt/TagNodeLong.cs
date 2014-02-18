@@ -69,11 +69,6 @@ namespace Substrate.Nbt
             return _data.ToString();
         }
         
-        internal override StringBuilder _toJSON(StringBuilder builder)
-        {
-          return base._toJSON(builder).Append(_data);
-        }
-        
         /// <summary>
         /// Converts a system byte to a long node representing the same value.
         /// </summary>

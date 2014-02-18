@@ -81,19 +81,6 @@ namespace Substrate.Nbt
         {
             return _data.ToString();
         }
-
-        internal override StringBuilder _toJSON(StringBuilder builder)
-        {
-            StringBuilder ret = base._toJSON(builder);
-            ret.Append("[");
-            for (int i = 0; i < _data.Length; i++) {
-                if (i > 0)
-                    ret.Append(",");
-                ret.Append(Convert.ToInt16(_data[i]));
-            }
-            ret.Append("]");
-            return ret;
-        }
         
         /// <summary>
         /// Gets or sets a single byte at the specified index.

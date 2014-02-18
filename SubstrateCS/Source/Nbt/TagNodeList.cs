@@ -153,22 +153,6 @@ namespace Substrate.Nbt
             return _items.ToString();
         }
         
-        internal override StringBuilder _toJSON (StringBuilder builder)
-        {
-            StringBuilder ret = base._toJSON(builder);
-            bool isFirst = true;
-            ret.Append("[");
-            foreach (TagNode item in _items) {
-              if(!isFirst)
-                ret.Append(",");
-              else
-                isFirst = false;
-              item._toJSON(ret);
-            }
-            ret.Append("]");
-            return ret;
-        }
-        
         /// <summary>
         /// Resets and changes the storage type of the list.
         /// </summary>
