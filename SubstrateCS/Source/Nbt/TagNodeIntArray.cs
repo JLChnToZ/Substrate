@@ -8,9 +8,8 @@ namespace Substrate.Nbt
     /// <summary>
     /// An NBT node representing an integer array tag type.
     /// </summary>
-    public sealed class TagNodeIntArray : TagNode, IEnumerable<int>
+    public sealed class TagNodeIntArray : TagNodeArray<int>
     {
-        private int[] _data = null;
 
         /// <summary>
         /// Converts the node to itself.
@@ -31,34 +30,6 @@ namespace Substrate.Nbt
         }
 
         /// <summary>
-        /// Gets or sets an int array of tag data.
-        /// </summary>
-        public int[] Data
-        {
-            get { return _data; }
-            set { _data = value; }
-        }
-
-        /// <summary>
-        /// Gets or sets a single integer at the specified index.
-        /// </summary>
-        /// <param name="index">Valid index within stored integer array.</param>
-        /// <returns>The byte value at the given index of the stored integer array.</returns>
-        public int this[int index]
-        {
-            get { return _data[index]; }
-            set { _data[index] = value; }
-        }
-
-        /// <summary>
-        /// Gets the length of the stored byte array.
-        /// </summary>
-        public int Length
-        {
-            get { return _data.Length; }
-        }
-
-        /// <summary>
         /// Constructs a new byte array node with a null data value.
         /// </summary>
         public TagNodeIntArray () { }
@@ -67,10 +38,7 @@ namespace Substrate.Nbt
         /// Constructs a new byte array node.
         /// </summary>
         /// <param name="d">The value to set the node's tag data value.</param>
-        public TagNodeIntArray (int[] d)
-        {
-            _data = d;
-        }
+        public TagNodeIntArray (int[] d) : base(d) { }
 
         /// <summary>
         /// Makes a deep copy of the node.
@@ -85,15 +53,6 @@ namespace Substrate.Nbt
         }
 
         /// <summary>
-        /// Gets a string representation of the node's data.
-        /// </summary>
-        /// <returns>String representation of the node's data.</returns>
-        public override string ToString ()
-        {
-            return _data.ToString();
-        }
-
-        /// <summary>
         /// Converts a system int array to a int array node representing the same data.
         /// </summary>
         /// <param name="i">A int array.</param>
@@ -101,31 +60,6 @@ namespace Substrate.Nbt
         public static implicit operator TagNodeIntArray (int[] i)
         {
             return new TagNodeIntArray(i);
-        }
-
-        /// <summary>
-        /// Converts an int array node to a system int array representing the same data.
-        /// </summary>
-        /// <param name="i">An int array node.</param>
-        /// <returns>A system int array set to the node's data.</returns>
-        public static implicit operator int[] (TagNodeIntArray i)
-        {
-            return i._data;
-        }
-
-        /// <summary>
-        /// Gets the enumerator respends the data of this tag.
-        /// </summary>
-        /// <returns>The enumerator</returns>
-        public IEnumerator<int> GetEnumerator()
-        {
-            foreach (int i in _data)
-                yield return i;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }

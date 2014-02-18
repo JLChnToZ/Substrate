@@ -5,114 +5,132 @@ using Substrate.Core;
 
 namespace Substrate.Nbt
 {
-    public class JSONSerializer
+    public static class JSONSerializer
     {
-        public static string Serialize (TagNode tag)
+        public static string Serialize (TagNode tag, bool singleLine = false)
         {
-            return Serialize(tag, 0);
+            return Serialize(tag, 0, singleLine);
         }
 
-        public static string Serialize (TagNode tag, int level)
+        public static string Serialize(TagNode tag, int level, bool singleLine = false)
         {
             StringBuilder str = new StringBuilder();
 
-            if (tag.GetTagType() == TagType.TAG_COMPOUND) {
-                SerializeCompound(tag as TagNodeCompound, str, level);
-            }
-            else if (tag.GetTagType() == TagType.TAG_LIST) {
-                SerializeList(tag as TagNodeList, str, level);
-            }
-            else {
-                SerializeScaler(tag, str);
-            }
+            Serialize(tag, level, str, singleLine);
 
             return str.ToString();
         }
 
-        private static void SerializeCompound (TagNodeCompound tag, StringBuilder str, int level)
+        private static void Serialize(TagNode tag, int level, StringBuilder str, bool indent = false, bool singleLine = false)
+        {
+            switch (tag.GetTagType()) {
+                case TagType.TAG_COMPOUND:
+                    SerializeCompound(tag as TagNodeCompound, str, level);
+                    break;
+                case TagType.TAG_LIST:
+                    SerializeList(tag as TagNodeList, str, level);
+                    break;
+                case TagType.TAG_BYTE_ARRAY:
+                    SerializeArray(tag as TagNodeByteArray, str, level);
+                    break;
+                case TagType.TAG_INT_ARRAY:
+                    SerializeArray(tag as TagNodeIntArray, str, level);
+                    break;
+                default:
+                    if(indent && !singleLine) Indent(str, level);
+                    SerializeScaler(tag, str);
+                    break;
+            }
+        }
+
+        private static void SerializeCompound(TagNodeCompound tag, StringBuilder str, int level, bool singleLine = false)
         {
             if (tag.Count == 0) {
                 str.Append("{ }");
                 return;
             }
 
-            str.AppendLine();
-            AddLine(str, "{", level);
+            if(!singleLine)
+                str.AppendLine();
+            AddLine(str, "{", level, singleLine);
 
-            IEnumerator<KeyValuePair<string, TagNode>> en = tag.GetEnumerator();
             bool first = true;
-            while (en.MoveNext()) {
+            foreach(KeyValuePair<string, TagNode> item in tag) {
                 if (!first) {
                     str.Append(",");
-                    str.AppendLine();
+                    if(!singleLine)
+                        str.AppendLine();
                 }
 
-                KeyValuePair<string, TagNode> item = en.Current;
-                Add(str, "\"" + item.Key + "\": ", level + 1);
+                Add(str, "\"" + Escape(item.Key) + "\": ", level + 1, singleLine);
 
-                if (item.Value.GetTagType() == TagType.TAG_COMPOUND) {
-                    SerializeCompound(item.Value as TagNodeCompound, str, level + 1);
-                }
-                else if (item.Value.GetTagType() == TagType.TAG_LIST) {
-                    SerializeList(item.Value as TagNodeList, str, level + 1);
-                }
-                else {
-                    SerializeScaler(item.Value, str);
-                }
+                Serialize(tag, level + 1, str, false, singleLine);
 
                 first = false;
             }
-
-            str.AppendLine();
-            Add(str, "}", level);
+            if(!singleLine)
+                str.AppendLine();
+            Add(str, "}", level, singleLine);
         }
 
-        private static void SerializeList (TagNodeList tag, StringBuilder str, int level)
+        private static void SerializeList(TagNodeList tag, StringBuilder str, int level, bool singleLine = false)
         {
             if (tag.Count == 0) {
                 str.Append("[ ]");
                 return;
             }
 
-            str.AppendLine();
-            AddLine(str, "[", level);
+            if(!singleLine)
+                str.AppendLine();
 
-            IEnumerator<TagNode> en = tag.GetEnumerator();
+            AddLine(str, "[", level, singleLine);
+
             bool first = true;
-            while (en.MoveNext()) {
+            foreach (TagNode item in tag) {
                 if (!first) {
                     str.Append(",");
+                    str.AppendLine();
                 }
 
-                TagNode item = en.Current;
+                Serialize(item, level + 1, str, true, singleLine);
 
-                if (item.GetTagType() == TagType.TAG_COMPOUND) {
-                    SerializeCompound(item as TagNodeCompound, str, level + 1);
-                }
-                else if (item.GetTagType() == TagType.TAG_LIST) {
-                    SerializeList(item as TagNodeList, str, level + 1);
-                }
-                else {
-                    if (!first) {
-                        str.AppendLine();
-                    }
-                    Indent(str, level + 1);
-                    SerializeScaler(item, str);
-                }
-
-                
                 first = false;
             }
+            if(!singleLine)
+                str.AppendLine();
+            Add(str, "]", level, singleLine);
+        }
 
-            str.AppendLine();
-            Add(str, "]", level);
+        private static void SerializeArray<T>(TagNodeArray<T> tag, StringBuilder str, int level, bool singleLine = false) where T : struct {
+            if (tag.Length == 0) {
+                str.Append("[ ]");
+                return;
+            }
+            if(!singleLine)
+                str.AppendLine();
+            AddLine(str, "[", level, singleLine);
+
+            bool first = true;
+            foreach (T item in tag) {
+                if (!first) {
+                    str.Append(",");
+                    str.AppendLine();
+                }
+                
+                str.Append(item);
+
+                first = false;
+            }
+            if(!singleLine)
+                str.AppendLine();
+            Add(str, "]", level, singleLine);
         }
 
         private static void SerializeScaler (TagNode tag, StringBuilder str)
         {
             switch (tag.GetTagType()) {
                 case TagType.TAG_STRING:
-                    str.Append("\"" + tag.ToTagString().Data + "\"");
+                    str.Append("\"" + Escape(tag.ToTagString().Data) + "\"");
                     break;
 
                 case TagType.TAG_BYTE:
@@ -138,36 +156,42 @@ namespace Substrate.Nbt
                 case TagType.TAG_DOUBLE:
                     str.Append(tag.ToTagDouble().Data);
                     break;
-
-                case TagType.TAG_BYTE_ARRAY:
-                    str.Append(Convert.ToBase64String(tag.ToTagByteArray().Data));
-                    /*if (tag.ToTagByteArray().Length == (16 * 16 * 128 / 2)) {
-                        str.Append(Base16.Encode(tag.ToTagByteArray().Data, 1));
-                    }
-                    else {
-                        str.Append(Base16.Encode(tag.ToTagByteArray().Data, 2));
-                    }*/
-                    break;
             }
         }
 
-        private static void AddLine (StringBuilder str, string line, int level)
+        private static void AddLine (StringBuilder str, string line, int level, bool singleLine = false)
         {
+            if (singleLine) {
+                str.Append(line);
+                return;
+            }
             Indent(str, level);
             str.AppendLine(line);
         }
 
-        private static void Add (StringBuilder str, string line, int level)
+        private static void Add(StringBuilder str, string line, int level, bool singleLine = false)
         {
-            Indent(str, level);
+            if(!singleLine)
+                Indent(str, level);
             str.Append(line);
         }
 
         private static void Indent (StringBuilder str, int count)
         {
-            for (int i = 0; i < count; i++) {
+            for (int i = 0; i < count; i++)
                 str.Append("\t");
-            }
+        }
+
+        private static string Escape(string str) {
+            return new StringBuilder(str) // It is faster to escape string if a string builder is used.
+                .Replace("\\", "\\\\")
+                .Replace("\"", "\\\"")
+                .Replace("\r", "\\r")
+                .Replace("\n", "\\n")
+                .Replace("\t", "\\t")
+                .Replace("\b", "\\b")
+                .Replace("\f", "\\f")
+                .ToString();
         }
     }
 }

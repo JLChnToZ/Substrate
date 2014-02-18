@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization;
 using Substrate.Core;
 
 namespace Substrate.Nbt 
@@ -149,10 +151,11 @@ namespace Substrate.Nbt
         /// <summary>
         /// Get JSON string respends this NBT node.
         /// </summary>
-        /// <returns>JSON string in single line</returns>
-        public string toJSON ()
+        /// <param name="SingleLine">Should the result is in single line</param>
+        /// <returns>JSON string</returns>
+        public string toJSON (bool SingleLine = false)
         {
-            return JSONSerializer.Serialize(this);
+            return JSONSerializer.Serialize(this, SingleLine);
         }
     }
 }

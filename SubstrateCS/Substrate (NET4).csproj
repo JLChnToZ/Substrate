@@ -141,6 +141,7 @@
     <Compile Include="Source\Nbt\SchemaNodeString.cs" />
     <Compile Include="Source\Nbt\SchemaOptions.cs" />
     <Compile Include="Source\Nbt\TagNode.cs" />
+    <Compile Include="Source\Nbt\TagNodeArray.cs" />
     <Compile Include="Source\Nbt\TagNodeByteArray.cs" />
     <Compile Include="Source\Nbt\TagNodeCompound.cs" />
     <Compile Include="Source\Nbt\TagNodeDouble.cs" />
