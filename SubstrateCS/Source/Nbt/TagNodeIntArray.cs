@@ -105,17 +105,6 @@ namespace Substrate.Nbt
             ret.Append("]");
             return ret;
         }
-        
-        /// <summary>
-        /// Gets or sets a single int at the specified index.
-        /// </summary>
-        /// <param name="index">Valid index within stored int array.</param>
-        /// <returns>The int value at the given index of the stored byte array.</returns>
-        public int this[int index]
-        {
-            get { return _data[index]; }
-            set { _data[index] = value; }
-        }
 
         /// <summary>
         /// Converts a system int array to a int array node representing the same data.
