@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Text;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Substrate.Nbt
 {
     /// <summary>
     /// An NBT node representing an unsigned byte array tag type.
     /// </summary>
-    public sealed class TagNodeByteArray : TagNode
+    public sealed class TagNodeByteArray : TagNode, IEnumerable<byte>
     {
         private byte[] _data = null;
 
@@ -79,15 +81,15 @@ namespace Substrate.Nbt
         {
             return _data.ToString();
         }
-        
-        internal override StringBuilder _toJSON (StringBuilder builder)
+
+        internal override StringBuilder _toJSON(StringBuilder builder)
         {
             StringBuilder ret = base._toJSON(builder);
             ret.Append("[");
             for (int i = 0; i < _data.Length; i++) {
-              if(i > 0)
-                ret.Append(",");
-              ret.Append(Convert.ToInt16(_data[i]));
+                if (i > 0)
+                    ret.Append(",");
+                ret.Append(Convert.ToInt16(_data[i]));
             }
             ret.Append("]");
             return ret;
@@ -122,6 +124,21 @@ namespace Substrate.Nbt
         public static implicit operator byte[] (TagNodeByteArray b)
         {
             return b._data;
+        }
+
+        /// <summary>
+        /// Gets the enumerator respends the data of this tag.
+        /// </summary>
+        /// <returns>The enumerator</returns>
+        public IEnumerator<byte> GetEnumerator()
+        {
+            foreach (byte b in _data)
+                yield return b;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

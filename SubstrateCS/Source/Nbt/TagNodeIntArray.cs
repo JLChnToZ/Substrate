@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Substrate.Nbt
 {
-    public sealed class TagNodeIntArray : TagNode
+    /// <summary>
+    /// An NBT node representing an integer array tag type.
+    /// </summary>
+    public sealed class TagNodeIntArray : TagNode, IEnumerable<int>
     {
         private int[] _data = null;
 
@@ -33,6 +37,17 @@ namespace Substrate.Nbt
         {
             get { return _data; }
             set { _data = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets a single integer at the specified index.
+        /// </summary>
+        /// <param name="index">Valid index within stored integer array.</param>
+        /// <returns>The byte value at the given index of the stored integer array.</returns>
+        public int this[int index]
+        {
+            get { return _data[index]; }
+            set { _data[index] = value; }
         }
 
         /// <summary>
@@ -77,15 +92,15 @@ namespace Substrate.Nbt
         {
             return _data.ToString();
         }
-        
-        internal override StringBuilder _toJSON (StringBuilder builder)
+
+        internal override StringBuilder _toJSON(StringBuilder builder)
         {
             StringBuilder ret = base._toJSON(builder);
             ret.Append("[");
             for (int i = 0; i < _data.Length; i++) {
-              if(i > 0)
-                ret.Append(",");
-              ret.Append(_data[i]);
+                if (i > 0)
+                    ret.Append(",");
+                ret.Append(_data[i]);
             }
             ret.Append("]");
             return ret;
@@ -120,6 +135,21 @@ namespace Substrate.Nbt
         public static implicit operator int[] (TagNodeIntArray i)
         {
             return i._data;
+        }
+
+        /// <summary>
+        /// Gets the enumerator respends the data of this tag.
+        /// </summary>
+        /// <returns>The enumerator</returns>
+        public IEnumerator<int> GetEnumerator()
+        {
+            foreach (int i in _data)
+                yield return i;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

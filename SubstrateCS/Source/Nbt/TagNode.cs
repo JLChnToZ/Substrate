@@ -154,13 +154,13 @@ namespace Substrate.Nbt
         {
             return _toJSON(null).ToString();
         }
-        
+
         internal virtual StringBuilder _toJSON(StringBuilder builder)
         {
-          if(builder == null)
-            return new StringBuilder();
-          else
-            return builder;
+            if (builder == null)
+                return new StringBuilder();
+            else
+                return builder;
         }
     }
 }
