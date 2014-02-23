@@ -21,10 +21,6 @@ namespace Substrate.Nbt
             throw new InvalidCastException();
         }
 
-        public static explicit operator TagNodeNull(TagNode node) {
-            return node.ToTagNull();
-        }
-
         /// <summary>
         /// Convert this node to a byte tag type if supported.
         /// </summary>
@@ -32,10 +28,6 @@ namespace Substrate.Nbt
         public virtual TagNodeByte ToTagByte ()
         {
             throw new InvalidCastException(); 
-        }
-
-        public static explicit operator TagNodeByte(TagNode node) {
-            return node.ToTagByte();
         }
 
         /// <summary>
@@ -47,10 +39,6 @@ namespace Substrate.Nbt
             throw new InvalidCastException(); 
         }
 
-        public static explicit operator TagNodeShort(TagNode node) {
-            return node.ToTagShort();
-        }
-
         /// <summary>
         /// Convert this node to an int tag type if supported.
         /// </summary>
@@ -58,10 +46,6 @@ namespace Substrate.Nbt
         public virtual TagNodeInt ToTagInt ()
         {
             throw new InvalidCastException(); 
-        }
-
-        public static explicit operator TagNodeInt(TagNode node) {
-            return node.ToTagInt();
         }
 
         /// <summary>
@@ -73,10 +57,6 @@ namespace Substrate.Nbt
             throw new InvalidCastException(); 
         }
 
-        public static explicit operator TagNodeLong(TagNode node) {
-            return node.ToTagLong();
-        }
-
         /// <summary>
         /// Convert this node to a float tag type if supported.
         /// </summary>
@@ -86,10 +66,6 @@ namespace Substrate.Nbt
             throw new InvalidCastException();
         }
 
-        public static explicit operator TagNodeFloat(TagNode node) {
-            return node.ToTagFloat();
-        }
-
         /// <summary>
         /// Convert this node to a double tag type if supported.
         /// </summary>
@@ -97,10 +73,6 @@ namespace Substrate.Nbt
         public virtual TagNodeDouble ToTagDouble () 
         {
             throw new InvalidCastException();
-        }
-
-        public static explicit operator TagNodeDouble(TagNode node) {
-            return node.ToTagDouble();
         }
 
         /// <summary>
@@ -121,10 +93,6 @@ namespace Substrate.Nbt
             throw new InvalidCastException(); 
         }
 
-        public static explicit operator TagNodeString(TagNode node) {
-            return node.ToTagString();
-        }
-
         /// <summary>
         /// Convert this node to a list tag type if supported.
         /// </summary>
@@ -132,10 +100,6 @@ namespace Substrate.Nbt
         public virtual TagNodeList ToTagList ()
         {
             throw new InvalidCastException();
-        }
-
-        public static explicit operator TagNodeList(TagNode node) {
-            return node.ToTagList();
         }
 
         /// <summary>
@@ -147,10 +111,6 @@ namespace Substrate.Nbt
             throw new InvalidCastException(); 
         }
 
-        public static explicit operator TagNodeCompound(TagNode node) {
-            return node.ToTagCompound();
-        }
-
         /// <summary>
         /// Conver this node to an int array tag type if supported.
         /// </summary>
@@ -158,10 +118,6 @@ namespace Substrate.Nbt
         public virtual TagNodeIntArray ToTagIntArray ()
         {
             throw new InvalidCastException();
-        }
-
-        public static explicit operator TagNodeIntArray(TagNode node) {
-            return node.ToTagIntArray();
         }
 
         /// <summary>
