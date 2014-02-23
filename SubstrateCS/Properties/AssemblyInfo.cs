@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Substrate")]
-[assembly: AssemblyDescription("SDK for loading and modifying Minecraft worlds")]
+[assembly: AssemblyTitle("Substrate Lite")]
+[assembly: AssemblyDescription("SDK for editing NBT format")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Substrate")]
-[assembly: AssemblyCopyright("2011-2012 Justin Aquadro")]
+[assembly: AssemblyProduct("Substrate Lite")]
+[assembly: AssemblyCopyright("2011-2013 Justin Aquadro, 2013-2014 JLChnToZ for lite version.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -30,8 +30,8 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.3.8.0")]
-[assembly: AssemblyFileVersion("1.3.8.0")]
+[assembly: AssemblyVersion("1.3.8.1")]
+[assembly: AssemblyFileVersion("1.3.8.1")]
 
 // This library is compatible with all CLS-compliant .NET programming languages.
 [assembly: CLSCompliant(true)]

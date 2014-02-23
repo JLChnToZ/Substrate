@@ -17,8 +17,12 @@ namespace Substrate.Nbt
         /// </summary>
         /// <returns>A new null node.</returns>
         public virtual TagNodeNull ToTagNull () 
-        { 
+        {
             throw new InvalidCastException();
+        }
+
+        public static explicit operator TagNodeNull(TagNode node) {
+            return node.ToTagNull();
         }
 
         /// <summary>
@@ -26,8 +30,12 @@ namespace Substrate.Nbt
         /// </summary>
         /// <returns>A new byte node.</returns>
         public virtual TagNodeByte ToTagByte ()
-        { 
+        {
             throw new InvalidCastException(); 
+        }
+
+        public static explicit operator TagNodeByte(TagNode node) {
+            return node.ToTagByte();
         }
 
         /// <summary>
@@ -35,8 +43,12 @@ namespace Substrate.Nbt
         /// </summary>
         /// <returns>A new short node.</returns>
         public virtual TagNodeShort ToTagShort () 
-        { 
+        {
             throw new InvalidCastException(); 
+        }
+
+        public static explicit operator TagNodeShort(TagNode node) {
+            return node.ToTagShort();
         }
 
         /// <summary>
@@ -44,8 +56,12 @@ namespace Substrate.Nbt
         /// </summary>
         /// <returns>A new int node.</returns>
         public virtual TagNodeInt ToTagInt ()
-        { 
+        {
             throw new InvalidCastException(); 
+        }
+
+        public static explicit operator TagNodeInt(TagNode node) {
+            return node.ToTagInt();
         }
 
         /// <summary>
@@ -57,13 +73,21 @@ namespace Substrate.Nbt
             throw new InvalidCastException(); 
         }
 
+        public static explicit operator TagNodeLong(TagNode node) {
+            return node.ToTagLong();
+        }
+
         /// <summary>
         /// Convert this node to a float tag type if supported.
         /// </summary>
         /// <returns>A new float node.</returns>
         public virtual TagNodeFloat ToTagFloat () 
-        { 
+        {
             throw new InvalidCastException();
+        }
+
+        public static explicit operator TagNodeFloat(TagNode node) {
+            return node.ToTagFloat();
         }
 
         /// <summary>
@@ -73,6 +97,10 @@ namespace Substrate.Nbt
         public virtual TagNodeDouble ToTagDouble () 
         {
             throw new InvalidCastException();
+        }
+
+        public static explicit operator TagNodeDouble(TagNode node) {
+            return node.ToTagDouble();
         }
 
         /// <summary>
@@ -89,8 +117,12 @@ namespace Substrate.Nbt
         /// </summary>
         /// <returns>A new string node.</returns>
         public virtual TagNodeString ToTagString () 
-        { 
+        {
             throw new InvalidCastException(); 
+        }
+
+        public static explicit operator TagNodeString(TagNode node) {
+            return node.ToTagString();
         }
 
         /// <summary>
@@ -102,6 +134,10 @@ namespace Substrate.Nbt
             throw new InvalidCastException();
         }
 
+        public static explicit operator TagNodeList(TagNode node) {
+            return node.ToTagList();
+        }
+
         /// <summary>
         /// Convert this node to a compound tag type if supported.
         /// </summary>
@@ -111,6 +147,10 @@ namespace Substrate.Nbt
             throw new InvalidCastException(); 
         }
 
+        public static explicit operator TagNodeCompound(TagNode node) {
+            return node.ToTagCompound();
+        }
+
         /// <summary>
         /// Conver this node to an int array tag type if supported.
         /// </summary>
@@ -118,6 +158,10 @@ namespace Substrate.Nbt
         public virtual TagNodeIntArray ToTagIntArray ()
         {
             throw new InvalidCastException();
+        }
+
+        public static explicit operator TagNodeIntArray(TagNode node) {
+            return node.ToTagIntArray();
         }
 
         /// <summary>
@@ -146,6 +190,14 @@ namespace Substrate.Nbt
         public virtual TagNode Copy ()
         {
             return null;
+        }
+
+        /// <summary>
+        /// Clone (deep copy) this object.
+        /// </summary>
+        /// <returns></returns>
+        public object Clone() {
+            return Copy();
         }
         
         /// <summary>

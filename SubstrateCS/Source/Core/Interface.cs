@@ -8,7 +8,7 @@ namespace Substrate.Core
     /// Provides a virtual deep copy capability to implementors.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface ICopyable <T>
+    public interface ICopyable <T> : ICloneable
     {
         /// <summary>
         /// Performs a virtual deep copy of the object instance.

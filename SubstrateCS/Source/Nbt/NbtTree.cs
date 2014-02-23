@@ -584,27 +584,45 @@ namespace Substrate.Nbt
             return tree;
         }
 
+        /// <summary>
+        /// Clone (deep copy) this object.
+        /// </summary>
+        /// <returns></returns>
+        public object Clone() {
+            return Copy();
+        }
+
         #endregion
     }
 
     // TODO: Revise exceptions?
+    /// <summary />
     public class NBTException : Exception
     {
+        /// <summary />
         public const String MSG_GZIP_ENDOFSTREAM = "Gzip Error: Unexpected end of stream";
 
+        /// <summary />
         public const String MSG_READ_NEG = "Read Error: Negative length";
+        /// <summary />
         public const String MSG_READ_TYPE = "Read Error: Invalid value type";
 
+        /// <summary />
         public NBTException () { }
 
+        /// <summary />
         public NBTException (String msg) : base(msg) { }
 
+        /// <summary />
         public NBTException (String msg, Exception innerException) : base(msg, innerException) { }
     }
 
+    /// <summary />
     public class InvalidNBTObjectException : Exception { }
 
+    /// <summary />
     public class InvalidTagException : Exception { }
 
+    /// <summary />
     public class InvalidValueException : Exception { }
 }
